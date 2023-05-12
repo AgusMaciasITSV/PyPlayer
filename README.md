@@ -11,7 +11,7 @@ It was created to solve an everyday problem. This problem is getting a good qual
 >4. Store audio recordings
 
 ### **Interaction with the user:**
->The program interacts through terminal with keyboard commands. Using the [Keyboard](https://pypi.org/project/keyboard/) library for its menus and typing by terminal to control the music.
+>The program interacts through terminal with keyboard commands. Using the [Pynput](hhttps://pypi.org/project/pynput/) library for its menus and typing by terminal to control the music.
 
 ### **Installation:**
 >To be able to use the program, the following line of code must be executed in your linux terminal:
