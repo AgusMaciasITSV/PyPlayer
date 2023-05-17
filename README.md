@@ -1,6 +1,6 @@
 # PyPlayer
-### **Summarize:**
->The PyPlayer program mainly uses the ***[PyAudio](https://pypi.org/project/PyAudio/)*** library. This project's main goal is to explore the features of PyAudio. The program uses an interface that is pleasing to the eye, easy to access and intuitive to use. 
+### **Summary:**
+The PyPlayer program mainly uses the ***[PyAudio](https://pypi.org/project/PyAudio/)*** library. This project's main goal is to explore the features of PyAudio. The program uses an interface that is pleasing to the eye, easy to access and intuitive to use. 
 ### **Problematic:**
 It was created to solve an everyday problem. This problem is getting a good quality music player along with voice recording for free and in a easy way to use.
 
