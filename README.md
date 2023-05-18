@@ -30,6 +30,7 @@ The program interacts through terminal with keyboard commands. Using the [Pynput
 The libraries utilised for this project are the following: <br>
 - [PyAudio](https://pypi.org/project/PyAudio/)
 - [Pynput](https://pypi.org/project/pynput/)
+- [Tkinter-Designer](https://github.com/ParthJadhav/Tkinter-Designer)
 
 ### **Developers:**  
 - Macias Agustin
