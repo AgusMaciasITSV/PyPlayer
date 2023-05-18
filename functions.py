@@ -1,10 +1,6 @@
 #import pyaudio, pynput
 import os
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-
+from pynput.keyboard import Key, Controller
 #-------------------------Menu principal-------------------------
 def mainMenu():
     clear()
@@ -22,7 +18,7 @@ def mainMenu():
     c) Record audio file via microphone
     d) Exit
     """)
-
+    
 
 #-------------------------Menu de seleccion de audio-------------------------
 def browseMenu(): 
@@ -55,6 +51,12 @@ def recordMenu():
 
 
 #=========================SECCION DE FUNCIONES=========================
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+keyboard = Controller()
+
+
 
 
 
