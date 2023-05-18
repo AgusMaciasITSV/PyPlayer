@@ -3,13 +3,15 @@ from tkinter import filedialog
 import os
 import shutil
 
+from functions import clear
+
 import wave
 import sys
 import pyaudio
 
 def add_file():
     print("add file")
-    file = filedialog.askopenfile(mode='r', filetypes=[('WAV', '*.wav')])
+    file = filedialog.askopenfile(mode='r', filetypes=[('MP3', '*.mp3'), ('WAV', '*.wav')])
     if file:
         filepath = os.path.abspath(file.name)
         print(filepath)
@@ -22,10 +24,12 @@ def list_files():
     print("archivos en la carpeta Audios:")
     print(files)
 
+
 def reproducer():
     print("mp3 reproducer")
     chunk = 1024
     p = pyaudio.PyAudio()
+    clear()
     print("Seleccione el archivo a reproducir:")
     files = os.listdir("./Audios")
     cont = 1
@@ -37,11 +41,10 @@ def reproducer():
     aud = ""
     for file in files:
         print(cont2)
-        if reproduce == cont2:
+        if cont2 == int(reproduce):
             print("nache")
             aud = file
         cont2 = cont2 + 1
-
     nombre_audio = r"./Audios/" + aud
     print(nombre_audio)
     
