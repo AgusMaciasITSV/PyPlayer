@@ -9,21 +9,6 @@ import wave
 import sys
 import pyaudio
 
-def add_file():
-    print("add file")
-    file = filedialog.askopenfile(mode='r', filetypes=[('MP3', '*.mp3'), ('WAV', '*.wav')])
-    if file:
-        filepath = os.path.abspath(file.name)
-        print(filepath)
-        shutil.copy(filepath, "./Audios")
-        print("archivo añadido a la carpeta Audios")
-
-def list_files():
-    print("list files")
-    files = os.listdir("./Audios")
-    print("archivos en la carpeta Audios:")
-    print(files)
-
 
 def reproducer():
     print("mp3 reproducer")
