@@ -1,7 +1,8 @@
-#import pyaudio, pynput
+import pyaudio, pynput
 import os,sys,shutil
 from pynput.keyboard import Key, Controller
 from tkinter import filedialog
+from os import path
 #=========================SECCION DE FUNCIONES=========================
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -14,11 +15,20 @@ def listFiles():
     return x
 
 def listRecordings():
-    files = os.listdir("./Recordings")
-    x = ""
-    for y in files:
-        x = x+"\n"+y
-    return x
+    if path.isdir("./Recordings"):
+        files = os.listdir("./Recordings")
+        x = ""
+        for y in files:
+            x = x+"\n"+y
+        return x
+    else:
+        os.mkdir("./Recordings")
+        files = os.listdir("./Recordings")
+        x = ""
+        for y in files:
+            x = x+"\n"+y
+        return x
+    
 
 def addFile():
     file = filedialog.askopenfile(mode='r', filetypes=[('MP3', '*.mp3'), ('WAV', '*.wav')])
