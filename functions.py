@@ -1,8 +1,8 @@
-import pyaudio, pynput
-import os,sys,shutil
+import pyaudio, pynput,os,sys,shutil
 from pynput.keyboard import Key, Controller
 from tkinter import filedialog
 from os import path
+from grabador import recordAudio
 #=========================SECCION DE FUNCIONES=========================
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -48,10 +48,10 @@ def browseMenu():
 (__)  \____/\_/\_/(__/    \_/\_/\____/(____/(__)\__/     
 {"-"*75} 
 
-    a) Open new file audio
-    z) Back to main menu
+a) Open new file audio
+z) Back to main menu
 
-    Audio list:
+Audio list:
 """)
     browseS = browseSO+listFiles()
 
@@ -76,9 +76,9 @@ def recordMenu():
 (__\_)(____)\___)\__/(__\_)(____/  \_/\_/\____/(____/(__)\__/ 
 {"-"*75}
 
-        a)Start Recording
-        s)Open recordings
-        z)Back to main menu
+a)Start Recording
+s)Open recordings
+z)Back to main menu
         """)
     recordS = recordSO
     while True:
@@ -87,7 +87,8 @@ def recordMenu():
         x = input()
         recordS = recordSO
         if x == "a":
-            recordS = recordS+"\n\nFlag1"+"\n"
+            clear()
+            recordS = recordS+f"\n\n{recordAudio()}\n"
         elif x == "s":
             recordingsMenu()
         elif x == "z":
@@ -136,9 +137,9 @@ def mainMenu():
              /____/                          /____/                 
 {"-"*75}
 
-    a) Open audio file
-    s) Record audio file via microphone
-    z) Exit
+a) Open audio file
+s) Record audio file via microphone
+z) Exit
     """)
     menuS = menuSO
     while True:
