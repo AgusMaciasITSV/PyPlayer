@@ -3,6 +3,7 @@ from pynput.keyboard import Key, Controller
 from tkinter import filedialog
 from os import path
 from grabador import recordAudio
+from reproductor import audio_type
 #=========================SECCION DE FUNCIONES=========================
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -78,7 +79,7 @@ Audio list:
     browseS = browseSO+listFiles()
     files = os.listdir("./Audios")
     while True:
-        clear()
+        #clear()
         print(browseS)
         x = input()
         if x == "a":
@@ -88,7 +89,11 @@ Audio list:
             break
         elif selectableFile(files,x):
             browseS = browseSO+"\nFLAG: El archivo puede ser seleccionado"+"\n"
-            #selectedFile(files,x) ---> devuelve un string con el nombre del archivo
+            print("nache1")
+            selected_file = files[int(x)-1]
+            audio_path = os.path.join("./Audios", selected_file)
+            audio_type(audio_path)
+            print("nache")
         else:
             browseS = browseS+"\n\n**Inserte una tecla o numero valido"+"\n"
 
