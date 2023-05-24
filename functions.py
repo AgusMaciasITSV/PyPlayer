@@ -79,7 +79,7 @@ Audio list:
     browseS = browseSO+listFiles()
     files = os.listdir("./Audios")
     while True:
-        #clear()
+        clear()
         print(browseS)
         x = input()
         if x == "a":
@@ -88,12 +88,9 @@ Audio list:
         elif x == "z":
             break
         elif selectableFile(files,x):
-            browseS = browseSO+"\nFLAG: El archivo puede ser seleccionado"+"\n"
             print("nache1")
-            selected_file = files[int(x)-1]
-            audio_path = os.path.join("./Audios", selected_file)
+            audio_path = os.path.join("./Audios", selectedFile(files,x)) #Seleccion de audio
             audio_type(audio_path)
-            print("nache")
         else:
             browseS = browseS+"\n\n**Inserte una tecla o numero valido"+"\n"
 
@@ -149,8 +146,8 @@ Audio list:
         if x == "z":
             break
         elif selectableFile(files,x):
-            recordingsS = recordingsSO+"\nFLAG: El archivo puede ser seleccionado"+"\n"
-            #selectedFile(files,x) ---> devuelve un string con el nombre del archivo
+            clear()
+            audio_type(selectedFile(files,x)) #Seleccion de audio
         else:
             recordingsS = recordingsSO+"\n\n**Inserte una tecla o numero valido"+"\n"
 
