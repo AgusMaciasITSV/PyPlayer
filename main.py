@@ -59,18 +59,3 @@ def reproducer():
     def stop():
         stream.stop_stream()
         stream.close()
-
-
-
-
-print("Iniciando...")
-opcion = input("Seleccione una opcion:\n1. Agregar archivo\n2. Ver archivos\n3. Reproducir audio\n4. Salir")
-if opcion == "1":
-    add_file()
-elif opcion == "2":
-    list_files()
-elif opcion == "3":
-    reproducer()
-elif opcion == "4":
-    print("Saliendo...")
-    exit()

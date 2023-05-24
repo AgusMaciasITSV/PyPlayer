@@ -8,26 +8,35 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def listFiles():
-    files = os.listdir("./Audios")
-    x = ""
-    for y in files:
-        x = x+"\n"+y
-    return x
+    if path.isdir("./Audios"):
+        files = os.listdir("./Audios")
+        x = ""
+        i = 0
+        for y in files:
+            i +=1
+            x = x+f"\n{i}. "+y
+        return x
+    else:
+        os.mkdir("./Audios")
+        files = os.listdir("./Audios")
+        return "No hay ningun audio añadido!\n"
 
 def listRecordings():
     if path.isdir("./Recordings"):
         files = os.listdir("./Recordings")
         x = ""
+        i = 0
         for y in files:
-            x = x+"\n"+y
-        return x
+            i +=1
+            x = x+f"\n{i}. "+y
+        if x == "":
+            return "No hay ningun audio añadido!\n"
+        else:
+            return x
     else:
         os.mkdir("./Recordings")
         files = os.listdir("./Recordings")
-        x = ""
-        for y in files:
-            x = x+"\n"+y
-        return x
+        return "No hay ningun audio añadido!\n"
     
 
 def addFile():
@@ -37,7 +46,20 @@ def addFile():
         print(filepath)
         shutil.copy(filepath, "./Audios")
 
-
+def selectableFile(fileList,input):
+    try:
+        y = int(input)
+        x = fileList[y-1]
+        return True
+    except IndexError:
+        return False
+    except TypeError:
+        return False
+    
+def selectedFile(fileList,input):
+    y = int(input)
+    x = fileList[y-1]
+    return x
 #=========================SECCION DE MENUS=========================
 #-------------------------Menu de seleccion de audio-------------------------
 def browseMenu():
@@ -54,7 +76,7 @@ z) Back to main menu
 Audio list:
 """)
     browseS = browseSO+listFiles()
-
+    files = os.listdir("./Audios")
     while True:
         clear()
         print(browseS)
@@ -64,8 +86,11 @@ Audio list:
             browseS = browseSO+listFiles()+"\nArchivo añadido satisfactoriamente"+"\n"
         elif x == "z":
             break
+        elif selectableFile(files,x):
+            browseS = browseSO+"\nFLAG: El archivo puede ser seleccionado"+"\n"
+            #selectedFile(files,x) ---> devuelve un string con el nombre del archivo
         else:
-            browseS = browseS+"\n\n**Inserte una tecla valida"+"\n"
+            browseS = browseS+"\n\n**Inserte una tecla o numero valido"+"\n"
 
 #-------------------------Menu de grabacion-------------------------
 def recordMenu():
@@ -104,25 +129,25 @@ def recordingsMenu():
  )   / ) _)( (__(  O ))   / ) D ( )( /    /( (_ \ \___ \ 
 (__\_)(____)\___)\__/(__\_)(____/(__)\_)__) \___/ (____/
 {"-"*75}
-    
-    a) Flag 1
-    z) Back to record audio menu
 
-    Audio list:
+z) Back to record audio menu
+
+Audio list:
     """)
 
     recordingsS = recordingsSO+listRecordings()+"\n"
-
+    files = os.listdir("./Recordings")
     while True:
         clear()
         print(recordingsS)
         x = input()
-        if x == "a":
-            recordingsS = recordingsSO+listRecordings()+"\nFlag 1\n"
-        elif x == "z":
+        if x == "z":
             break
+        elif selectableFile(files,x):
+            recordingsS = recordingsSO+"\nFLAG: El archivo puede ser seleccionado"+"\n"
+            #selectedFile(files,x) ---> devuelve un string con el nombre del archivo
         else:
-            recordingsS = recordingsSO+"\n\n**Inserte una tecla valida"+"\n"
+            recordingsS = recordingsSO+"\n\n**Inserte una tecla o numero valido"+"\n"
 
 
 #-------------------------Menu principal-------------------------
