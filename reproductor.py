@@ -1,4 +1,5 @@
 import pyaudio, wave, subprocess
+from pynput import keyboard
 
 def audio_type(file_name):
     a = file_name.split(".")[-1]
@@ -43,39 +44,55 @@ def reproductor_mp3(file_name):
 
 def reproductor_wav(file_name):
     CHUNK = 1024
+    grabando = False
+    stream = None
+
+    def iniciar_pausar_reproduccion():
+        global grabando
+        grabando = not grabando
+        if grabando:
+            print("Reproducción iniciada...")
+        else:
+            print("Reproducción pausada...")
+
+    def finalizar_reproduccion(stream):
+        global grabando
+        grabando = False
+        print("Reproducción finalizada.")
+        stream.stop_stream()
+        stream.close()
+
+    def on_press(key):
+        if key == keyboard.Key.esc:
+            return False
+
+        if key == keyboard.KeyCode.from_char('r'):
+            iniciar_pausar_reproduccion()
+
+        return True
+
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
 
     with wave.open(file_name, 'rb') as wf:
-        # Instantiate PyAudio and initialize PortAudio system resources (1)
         p = pyaudio.PyAudio()
-
-        # Open stream (2)
         stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
 
-        # Play samples from the wave file (3)
-        while True:
-            data = wf.readframes(CHUNK)
+        data = wf.readframes(CHUNK)
+
+        while listener.running:
+            if grabando:
+                stream.write(data)
+            else:
+                # Si no se está grabando, se lee el siguiente chunk del archivo para avanzar en la reproducción
+                data = wf.readframes(CHUNK)
+
             if len(data) == 0:
-                # Finalizar la reproducción cuando se llega al final del archivo
+                finalizar_reproduccion(stream)
                 break
 
-            # Verificar el valor ingresado por terminal
-            user_input = input("Ingrese 'p' para pausar, 'r' para reanudar, o 'f' para finalizar: ")
-            if user_input == 'p':
-                # Pausar la reproducción
-                while user_input != 'r':
-                    user_input = input("Ingrese 'r' para reanudar: ")
-            elif user_input == 'f':
-                # Finalizar la reproducción
-                break
-
-            # Escribir los datos en el stream para reproducir el audio
-            stream.write(data)
-
-        # Cerrar stream (4)
-        stream.close()
-
-        # Liberar los recursos del sistema de PortAudio (5)
-        p.terminate()
+    listener.stop()
+    p.terminate()
