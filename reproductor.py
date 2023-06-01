@@ -1,4 +1,4 @@
-import pyaudio, wave, subprocess
+import pyaudio, wave, subprocess, threading
 from pynput import keyboard
 
 def audio_type(file_name):
@@ -44,55 +44,60 @@ def reproductor_mp3(file_name):
 
 def reproductor_wav(file_name):
     CHUNK = 1024
-    grabando = False
-    stream = None
-
-    def iniciar_pausar_reproduccion():
-        global grabando
-        grabando = not grabando
-        if grabando:
-            print("Reproducción iniciada...")
-        else:
-            print("Reproducción pausada...")
-
-    def finalizar_reproduccion(stream):
-        global grabando
-        grabando = False
-        print("Reproducción finalizada.")
-        stream.stop_stream()
-        stream.close()
-
-    def on_press(key):
-        if key == keyboard.Key.esc:
-            return False
-
-        if key == keyboard.KeyCode.from_char('r'):
-            iniciar_pausar_reproduccion()
-
-        return True
-
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
+    lock = threading.Lock()
+    is_paused = False
+    is_finished = False
 
     with wave.open(file_name, 'rb') as wf:
+        # Instantiate PyAudio and initialize PortAudio system resources (1)
         p = pyaudio.PyAudio()
+
+        # Open stream (2)
         stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
+        def on_press(key):
+            nonlocal is_paused
+            if key == keyboard.KeyCode.from_char('p'):
+                lock.acquire()
+                is_paused = False
+                is_finished = True
+                lock.release() 
 
-        data = wf.readframes(CHUNK)
+            if key == keyboard.KeyCode.from_char('r'):
+                is_paused = not is_paused
+                if is_paused:
+                    lock.acquire()
+                    is_paused = True
+                    lock.release()
+                    print("Reproduccion pausada...")
+                else:
+                    lock.acquire()
+                    is_paused = False
+                    lock.release()
+                    print("Reproduccion en progreso...")
+
+        listener = keyboard.Listener(on_press=on_press)
+        listener.start()
 
         while listener.running:
-            if grabando:
-                stream.write(data)
-            else:
-                # Si no se está grabando, se lee el siguiente chunk del archivo para avanzar en la reproducción
+        # Play samples from the wave file (3)
+            while True:
                 data = wf.readframes(CHUNK)
+                
+                if len(data) == 0:
+                    # Finalizar la reproducción cuando se llega al final del archivo
+                    break
+                    is_finished = True
 
-            if len(data) == 0:
-                finalizar_reproduccion(stream)
-                break
+                # Escribir los datos en el stream para reproducir el audio
+                if not is_paused and not is_finished:
+                    stream.write(data)
+                
+            # Cerrar stream (4)
+            if is_finished:
+                stream.close()
 
-    listener.stop()
-    p.terminate()
+                # Liberar los recursos del sistema de PortAudio (5)
+                p.terminate()
