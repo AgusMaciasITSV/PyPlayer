@@ -5,10 +5,12 @@ def audio_type(file_name):
     a = file_name.split(".")[-1]
     if a == "mp3":
         print("preparando para reproducir .mp3")
-        reproductor_mp3(file_name)
+        if reproductor_mp3(file_name):
+            return True
     elif a == "wav":
         print("preparando para reproducir .wav")
-        reproductor_wav(file_name)
+        if reproductor_wav(file_name):
+            return True
 
 def reproductor_mp3(file_name):
     CHUNK = 1024
@@ -69,7 +71,7 @@ def reproductor_mp3(file_name):
                 stream.close()
 
                 p.terminate()
-                break
+                return True
 
 
     # Eliminar el archivo WAV temporal
@@ -132,4 +134,4 @@ def reproductor_wav(file_name):
                 stream.close()
 
                 p.terminate()
-                break
+                return True
