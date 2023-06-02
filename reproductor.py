@@ -30,7 +30,7 @@ def reproductor_mp3(file_name):
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
-
+        #acá pelado boton
         def on_press(key):
             nonlocal is_paused, is_playing, is_finished
             if key == keyboard.KeyCode.from_char('p'):

@@ -148,7 +148,7 @@ Audio list:
             break
         elif selectableFile(files,x):
             clear()
-            audio_path = os.path.join("./Audios", selectedFile(files,x)) #Seleccion de audio
+            audio_path = os.path.join("./Recordings", selectedFile(files,x)) #Seleccion de audio
             while True:
                 if audio_type(audio_path):
                     break
