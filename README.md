@@ -9,9 +9,11 @@ It was created to solve an everyday problem. This problem is getting a good qual
 >~~~
 >pip install -r requeriments.txt
 >~~~
->Then execute the following command:
+>Then execute the following commands:
 >~~~
->sudo apt install tk
+>sudo apt install tk  
+>
+>sudo apt-get install ffmpeg
 >~~~
 >When the dependencies are installed, the program will be able to be executed. In case that they cannot be installed, you can contact the developers to get some help (Teodoro Reyna and Nicolas Ledesma are not allowed to contact us, they are grown mans who can install the dependencies by themselves).  
 >To execute the program, you can enter your Linux terminal and execute the following command:

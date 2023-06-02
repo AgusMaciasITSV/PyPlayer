@@ -88,9 +88,8 @@ Audio list:
         elif x == "z":
             break
         elif selectableFile(files,x):
-            print("nache1")
             audio_path = os.path.join("./Audios", selectedFile(files,x)) #Seleccion de audio
-            audio_type(audio_path)
+            reproduccionMenu(audio_path)
         else:
             browseS = browseS+"\n\n**Inserte una tecla o numero valido"+"\n"
 
@@ -182,5 +181,22 @@ z) Exit
             sys.exit()
         else:
             menuS = menuS+"\n\n**Inserte una tecla valida"
+#-------------------------Menu de Reproducción-------------------------
+def reproduccionMenu(audio_path):
+    menuSO = str(f"""
+{"-"*75}
+ ____  ____  ____  ____   __  ____  _  _   ___  ___  __  __   __ _ 
+(  _ \(  __)(  _ \(  _ \ /  \(    \/ )( \ / __)/ __)(  )/  \ (  ( \
+ )   / ) _)  ) __/ )   /(  O )) D () \/ (( (__( (__  )((  O )/    /
+(__\_)(____)(__)  (__\_) \__/(____/\____/ \___)\___)(__)\__/ \_)__)
 
+{"-"*75}
+
+r) Pausar o despausar la reproducción del audio
+p) Finalizar la reproduccion del audio
+
+IMPORTANTE:
+al finalizar la reproduccion, asegurese de tocar un par de veces la barra de retroceso
+    """)
+    audio_type(audio_path)
 mainMenu()
