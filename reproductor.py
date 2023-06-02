@@ -30,13 +30,12 @@ def reproductor_mp3(file_name):
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
-        #acá pelado boton
         print("""
         
-        p) Finalizar la reproduccion
-        r) Pausar/despausar grabacion
+        p) Finalizar la reproducción
+        r) Pausar/despausar reproducción
 
-        *Al finalizar la reproduccion, asegurese de presionar un par de veces la barra de retroceso
+        *Al finalizar la reproducción, asegurese de presionar un par de veces la barra de retroceso
 
         """)
         def on_press(key):
@@ -54,12 +53,12 @@ def reproductor_mp3(file_name):
                     lock.acquire()
                     is_playing = False
                     lock.release()
-                    print("Reproduccion pausada...")
+                    print("Reproducción pausada...")
                 else:
                     lock.acquire()
                     is_playing = True
                     lock.release()
-                    print("Reproduccion en progreso...")
+                    print("Reproducción en progreso...")
 
         listener = keyboard.Listener(on_press=on_press)
         listener.start()
@@ -100,7 +99,14 @@ def reproductor_wav(file_name):
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
-        print()
+        print("""
+        
+        p) Finalizar la reproducción
+        r) Pausar/despausar reproducción
+
+        *Al finalizar la reproducción, asegurese de presionar un par de veces la barra de retroceso
+
+        """)
 
         def on_press(key):
             nonlocal is_paused, is_playing, is_finished
@@ -117,12 +123,12 @@ def reproductor_wav(file_name):
                     lock.acquire()
                     is_playing = False
                     lock.release()
-                    print("Reproduccion pausada...")
+                    print("Reproducción pausada...")
                 else:
                     lock.acquire()
                     is_playing = True
                     lock.release()
-                    print("Reproduccion en progreso...")
+                    print("Reproducción en progreso...")
 
         listener = keyboard.Listener(on_press=on_press)
         listener.start()
