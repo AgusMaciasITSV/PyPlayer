@@ -32,10 +32,12 @@ def reproductor_mp3(file_name):
                         output=True)
         #acá pelado boton
         print("""
+        
         p) Finalizar la reproduccion
         r) Pausar/despausar grabacion
 
         *Al finalizar la reproduccion, asegurese de presionar un par de veces la barra de retroceso
+
         """)
         def on_press(key):
             nonlocal is_paused, is_playing, is_finished
