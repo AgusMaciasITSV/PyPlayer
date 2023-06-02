@@ -3,4 +3,3 @@ PyAudio==0.2.13
 pynput==1.7.6
 python-xlib==0.33
 six==1.16.0
-sudo apt install tk
