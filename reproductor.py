@@ -1,4 +1,4 @@
-import pyaudio, wave, subprocess, threading
+import pyaudio, wave, subprocess, threading, os
 from pynput import keyboard
 
 def audio_type(file_name):
@@ -30,6 +30,8 @@ def reproductor_mp3(file_name):
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
+
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("""
         
         p) Finalizar la reproducción
@@ -99,6 +101,8 @@ def reproductor_wav(file_name):
                         channels=wf.getnchannels(),
                         rate=wf.getframerate(),
                         output=True)
+
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("""
         
         p) Finalizar la reproducción
